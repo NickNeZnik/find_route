@@ -1,28 +1,47 @@
 {%extends 'base.html'%}
-{% block title %} Список городов {% endblock %}
+{% block title %} Список поездов {% endblock %}
 
 {% block content %}
-<h1>Список городов</h1>
+<h1>Список поездов</h1>
 <div class="row">
     <div class="col-md-8 mx-auto my-2">
         <table class="table table-striped">
+            <tr>
+                <th>Номер</th>
+                <th>Откуда</th>
+                <th>Куда</th>
+                <th>Время в пути</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+            </tr>
 
             {% for object in page_obj %}
 
             <tr>
                 <td>
-                    <a href="{% url 'cities:detail' pk=object.pk%}">{{object.name}}</a>
+                    <a href="{% url 'trains:detail' pk=object.pk%}">{{object.name}}</a>
+
                 </td>
                 <td>
-                    <a href="{% url 'cities:update' pk=object.pk%}">
+                    {{object.from_city}}
+                </td>
+                <td>
+                    {{object.to_city}}
+                </td>
+                <td>
+                    {{object.travel_time}}
+                </td>
+                <td>
+                    <a href="{% url 'trains:update' pk=object.pk%}">
                          <button type="submit" class="btn btn-primary">Редактировать</button>
                     </a>
                 </td>
                 <td>
-                    <a href="{% url 'cities:delete' pk=object.pk%}">
+                   <a href="{% url 'trains:delete' pk=object.pk%}">
                          <button type="submit" class="btn btn-danger">Удалить</button>
                     </a>
                 </td>
+
             </tr>
 
             {%endfor%}
@@ -56,15 +75,5 @@
     </li>
   </ul>
 </nav>
-
-
-<div class="row">
-    <div class=col-md-4>
-        <form action = "{% url 'cities:create' %}" method="post"> {% csrf_token %}
-            {{form.as_p}}
-            <input type="submit" value="Submit">
-        </form>
-    </div>
-</div>
 
 {% endblock %}

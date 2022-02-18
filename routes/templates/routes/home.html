@@ -1,0 +1,49 @@
+{%extends 'base.html'%}
+{% block title %} Поиск маршрута {% endblock %}
+
+{% block content %}
+<h1>Поиск маршрута</h1>
+
+{% url 'find_routes' as action_find_routes %}
+{% include 'form.html' with button_name='Найти' action=action_find_routes%}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+
+        {% if  routes %}
+        <h3>Маршрут{%if routes|length != 1%}ы{% endif %} из г.{{cities.from_city}} в г.{{cities.to_city}}</h3>
+
+        {% for route in routes %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">
+                    Маршрут №{{ forloop.counter }}, время в пути {{route.total_time}} мин.
+
+                    {% if forloop.first%}
+                        <span class="colortext" style="color:#00ff00">(самый быстрый)</span>
+                    {% endif %}
+
+                </th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for train in route.trains %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{train}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+
+        {% endfor %}
+
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}
