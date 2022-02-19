@@ -78,6 +78,6 @@ def get_routes(request, form) -> dict:
         right_time_routes.sort(key=operator.itemgetter('total_time'))
 
     context['routes'] = right_time_routes
-    context['cities'] = {'from_city': from_city.name, 'to_city': to_city.name}
+    context['cities'] = {'from_city': from_city, 'to_city': to_city}
 
     return context
