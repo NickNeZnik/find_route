@@ -1,0 +1,10 @@
+{%extends 'base.html'%}
+{% block title %} Удаление маршрута {% endblock %}
+
+{% block content %}
+<h1>Удаление маршрута</h1>
+<p>Вы действительно хотите удалить маршрут "{{ object }}"?</p>
+
+{% include 'form.html' with button_name='Удалить'%}
+
+{% endblock %}

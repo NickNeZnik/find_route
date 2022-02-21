@@ -17,14 +17,14 @@
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light container"  style="background-color: #07eafa">
+    <nav class="navbar navbar-expand-lg navbar-light container"  style="background-color: #CEEFF0">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'home' %}">FindRoute</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link {%if request.path == cities_home_url%} active {%endif%}" href="{% url 'cities:home'%}">Города</a>
                     </li>
@@ -36,17 +36,35 @@
                         <a class="nav-link {%if request.path == routes_list_url%} active {%endif%}" href="{% url 'list'%}">Маршруты</a>
 
                     </li>
+                    {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle
                         {%if request.path == trains_create_url or request.path == cities_create_url%} active {%endif%}"
                            href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Создать
                         </a>
+
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{% url 'cities:create' %}"> Новый город</a></li>
                             <li><a class="dropdown-item" href="{% url 'trains:create' %}"> Новый поезд</a></li>
                         </ul>
+
                     </li>
+                    {% else %}
+                        <li class="nav-item">
+                        <a class="nav-link disabled" href="">Создать</a>{% endif %}
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:logout'%}">Выйти</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'accounts:login'%}">Войти</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'accounts:registration'%}">Регистрация</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
