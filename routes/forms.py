@@ -22,7 +22,7 @@ class RouteForm(forms.Form):
                                             widget=forms.SelectMultiple(attrs={
                                                 'class': 'form-control js-example-basic-multiple'}))
 
-    travelling_time = forms.IntegerField(label='Время на маршрут (в минутах)',
+    travelling_time = forms.IntegerField(label='Время на прохождение маршрута (в минутах)',
                                          widget=forms.NumberInput(attrs={
         'class': 'form-control',
         'placeholder': 'Время, за которое хотите проехать маршрут'}))
