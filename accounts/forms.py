@@ -28,7 +28,7 @@ class UserLoginForm(forms.Form):
                 raise forms.ValidationError('Неверный пароль')
             user = authenticate(username=username, password=password)
             if not user:
-                raise forms.ValidationError('Пользователь неактивен')
+                raise forms.ValidationError('Данный пользователь неактивен')
         return super().clean(*args, **kwargs)
 
 
